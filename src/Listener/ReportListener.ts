@@ -233,10 +233,16 @@ export default class ReportListener {
                 reportMessage.updateDate = new Date();
                 await reportMessage.save();
             } else {
-                message = await channel.createMessage({embed: embed.serialize()});
-                this.addReactions(message);
-                reportMessage.messageId = message.id;
-                await reportMessage.save();
+                try {
+                    message = await channel.createMessage({embed: embed.serialize()});
+                    this.addReactions(message);
+                    reportMessage.messageId = message.id;
+                    await reportMessage.save();
+                } catch (e) {
+                    console.error("Failed to create message: " + JSON.stringify({error: e.message, guild: guild.id, channel: channel.id, report: report.id}));
+
+                    return;
+                }
             }
 
             return;
@@ -287,20 +293,24 @@ export default class ReportListener {
          * Create a new reportMessage if there isn't one. This should usually happen here. Will only not happen if the
          * edit fires before a message is created
          */
-        message = await channel.createMessage({embed: embed.serialize()});
-        this.addReactions(message);
-        if (!reportMessage) {
-            reportMessage            = new ReportMessage();
-            reportMessage.reportId   = report.id;
-            reportMessage.guildId    = guild.id;
-            reportMessage.channelId  = channel.id;
-            reportMessage.insertDate = new Date();
+        try {
+            message = await channel.createMessage({embed: embed.serialize()});
+            this.addReactions(message);
+            if (!reportMessage) {
+                reportMessage            = new ReportMessage();
+                reportMessage.reportId   = report.id;
+                reportMessage.guildId    = guild.id;
+                reportMessage.channelId  = channel.id;
+                reportMessage.insertDate = new Date();
+            }
+
+            reportMessage.messageId  = message.id;
+            reportMessage.updateDate = new Date();
+
+            await reportMessage.save();
+        } catch (e) {
+            console.error("Failed to create message: " + JSON.stringify({error: e.message, guild: guild.id, channel: channel.id, report: report.id}));   
         }
-
-        reportMessage.messageId  = message.id;
-        reportMessage.updateDate = new Date();
-
-        await reportMessage.save();
 
         return;
     }
@@ -316,7 +326,13 @@ export default class ReportListener {
         const links         = report.links.map((x) => `<${x}>`);
         const tags          = report.tags.map((x) => x.name);
 
-        let description = `**Users:** \n${reportedUsers.splice(0, 10).join(', ')} (limited to 10)`;
+        let description = '**Users:**\n';
+        if (reportedUsers.length > 10) {
+            description += `${reportedUsers.slice(0, 10).join(', ')} (limited to 10 out of ${reportedUsers.length})`;
+        } else {
+            description += reportedUsers.join(', ');
+        }
+
         if (report.reason) {
             description += `\n\n**Reason:**\n${report.reason}`;
         }

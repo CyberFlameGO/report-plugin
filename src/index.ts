@@ -184,8 +184,9 @@ export default class ReportPlugin extends AbstractPlugin {
                 }
 
                 const users: string[] = report.reportedUsers.map((x) => x.id);
-                ids.forEach((x, index) => {
-                    if (users.includes(x)) {
+                ids.forEach((x) => {
+                    const index = users.indexOf(x);
+                    if (index >= 0) {
                         users.splice(index, 1);
                     } else {
                         users.push(x);
@@ -207,8 +208,9 @@ export default class ReportPlugin extends AbstractPlugin {
                 }
 
                 const newTags: number[] = report.tags.map((x) => x.id);
-                tags.forEach((x, index) => {
-                    if (newTags.includes(x)) {
+                tags.forEach((x) => {
+                    const index = newTags.indexOf(x);
+                    if (index >= 0) {
                         newTags.splice(index, 1);
                     } else {
                         newTags.push(x);
@@ -224,8 +226,9 @@ export default class ReportPlugin extends AbstractPlugin {
                 }
 
                 const newLinks: string[] = report.links;
-                links.forEach((x, index) => {
-                    if (newLinks.includes(x)) {
+                links.forEach((x) => {
+                    const index = newLinks.indexOf(x);
+                    if (index >= 0) {
                         newLinks.splice(index, 1);
                     } else {
                         newLinks.push(x);
@@ -276,7 +279,7 @@ export default class ReportPlugin extends AbstractPlugin {
         'setup',
         'Set up reports to go to a channel the bot is in.',
         `Set up reports to go to a channel the bot is in.
-        
+
 onlyUsersInGuild should be \`true\` or \`yes\` (anything else is no). If set to no, will alert you to ALL reports.
 
 tags should be \`all\` or a list (comma or space delimited) list of tags from: {prefix}tags
@@ -516,8 +519,8 @@ tags should be \`all\` or a list (comma or space delimited) list of tags from: {
         const embed = new Embed();
 
         embed.author      = {name: `Report ID: ${report.id}`};
-        embed.description = `**Users:** ${reportedUsers.splice(0, 10).join(', ')}
-        
+        embed.description = `**Users:** ${reportedUsers.length > 10 ? `${reportedUsers.slice(0, 10).join(', ')} (limited to 10 out of ${reportedUsers.length})` : reportedUsers.slice(0, 10).join(', ')}
+
 **Reason:** ${report.reason}
 
 **Links:** ${links.length === 0 ? 'None' : links.join('\n')}

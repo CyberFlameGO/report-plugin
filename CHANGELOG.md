@@ -1,3 +1,46 @@
+## [1.8.3](https://github.com/DiscordHotline/report-plugin/compare/v1.8.2...v1.8.3) (2019-03-15)
+
+
+### Bug Fixes
+
+* **ReportListener:** More Logs ([e0ddad8](https://github.com/DiscordHotline/report-plugin/commit/e0ddad8))
+
+## [1.8.2](https://github.com/DiscordHotline/report-plugin/compare/v1.8.1...v1.8.2) (2019-03-15)
+
+
+### Bug Fixes
+
+* **ReportListener:** Better Error Message ([f34d05d](https://github.com/DiscordHotline/report-plugin/commit/f34d05d))
+
+## [1.8.1](https://github.com/DiscordHotline/report-plugin/compare/v1.8.0...v1.8.1) (2019-03-15)
+
+
+### Bug Fixes
+
+* **ReportListener:** Catching error ([49ef645](https://github.com/DiscordHotline/report-plugin/commit/49ef645))
+
+# [1.8.0](https://github.com/DiscordHotline/report-plugin/compare/v1.7.3...v1.8.0) (2019-03-10)
+
+
+### Features
+
+* **reportEmbed:** Improve the user ID limit message ([2220940](https://github.com/DiscordHotline/report-plugin/commit/2220940))
+
+## [1.7.3](https://github.com/DiscordHotline/report-plugin/compare/v1.7.2...v1.7.3) (2019-03-10)
+
+
+### Bug Fixes
+
+* **reportEmbed:** Slicing instead of splicing ([1364eca](https://github.com/DiscordHotline/report-plugin/commit/1364eca))
+* **reportListener:** Slicing instead of splicing ([bf119b5](https://github.com/DiscordHotline/report-plugin/commit/bf119b5))
+
+## [1.7.2](https://github.com/DiscordHotline/report-plugin/compare/v1.7.1...v1.7.2) (2019-03-10)
+
+
+### Bug Fixes
+
+* **edit:** Updating edit to toggle properly ([5e860b8](https://github.com/DiscordHotline/report-plugin/commit/5e860b8))
+
 ## [1.7.1](https://github.com/DiscordHotline/report-plugin/compare/v1.7.0...v1.7.1) (2019-02-27)
 
 
