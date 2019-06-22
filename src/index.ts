@@ -25,6 +25,7 @@ export default class ReportPlugin extends AbstractPlugin {
 
     public static async addToContainer(container: Container, types: any): Promise<void> {
         const {value: {key: apiKey}} = await container.get<any>(types.secrets.manager).getSecret('hotline/bot/api');
+
         container.bind<string>(Types.api.url).toConstantValue(this.Config.apiUrl || 'https://api.hotline.gg/');
         container.bind<AxiosInstance>(Types.api.client).toDynamicValue((ctx) => axios.create({
             baseURL: ctx.container.get(Types.api.url),
