@@ -1,3 +1,11 @@
+# [1.9.0](https://github.com/DiscordHotline/report-plugin/compare/v1.8.3...v1.9.0) (2019-06-22)
+
+
+### Features
+
+* **secrets:** Moving to AWS ([cb90172](https://github.com/DiscordHotline/report-plugin/commit/cb90172))
+* **secrets:** Moving to AWS ([6f5343a](https://github.com/DiscordHotline/report-plugin/commit/6f5343a))
+
 ## [1.8.3](https://github.com/DiscordHotline/report-plugin/compare/v1.8.2...v1.8.3) (2019-03-15)
 
 
