@@ -318,16 +318,18 @@ export default class ReportListener {
 
         let description = `**Users:** \n${reportedUsers.splice(0, 10).join(', ')} (limited to 10)`;
         if (report.reason) {
-            description += `\n\n**Reason:** ${report.reason}`;
+            description += `\n\n**Reason:**\n${report.reason}`;
         }
 
         if (report.tags.length > 0) {
-            description += `\n\n**Tags:** \n${tags.join(', ')}`;
+            description += `\n\n**Tags:**\n${tags.join(', ')}`;
         }
 
         if (report.links.length > 0) {
-            description += `\n\n**Links:** \n${links.join('\n')}`;
+            description += `\n\n**Links:**\n${links.join('\n')}`;
         }
+
+        // description += `\n\n**Reporter:**\n${this.getReporter(report)}`;
 
         const created    = moment(report.insertDate).format('YYYY-MM-DD HH:mm');
         const footerText = `Confirmations: ${report.confirmations.length + 1} | Created: ${created}`;
@@ -341,4 +343,6 @@ export default class ReportListener {
 
         return embed;
     }
+
+    // private async getReporter(report: interfaces.Report): Promise<string> {}
 }

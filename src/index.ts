@@ -24,7 +24,7 @@ export default class ReportPlugin extends AbstractPlugin {
     public static Config: interfaces.Config;
 
     public static async addToContainer(container: Container, types: any): Promise<void> {
-        const apiKey = await container.get<any>(types.vault.client).getSecret('bot/api', 'key');
+        const {value: {key: apiKey}} = await container.get<any>(types.secrets.manager).getSecret('hotline/bot/api');
         container.bind<string>(Types.api.url).toConstantValue(this.Config.apiUrl || 'https://api.hotline.gg/');
         container.bind<AxiosInstance>(Types.api.client).toDynamicValue((ctx) => axios.create({
             baseURL: ctx.container.get(Types.api.url),
@@ -417,7 +417,7 @@ tags should be \`all\` or a list (comma or space delimited) list of tags from: {
             );
         }
 
-        await this.context.message.addReaction('📫')
+        await this.context.message.addReaction('📫');
         this.reportConversations[this.context.user.id] = this.reportCreatorFactory.create(
             this.context,
             init,
