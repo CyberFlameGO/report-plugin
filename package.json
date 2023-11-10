@@ -43,6 +43,6 @@
         "flatted": "^2.0.0"
     },
     "dependencies": {
-        "axios": "^0.18.0"
+        "axios": "^1.6.0"
     }
 }
